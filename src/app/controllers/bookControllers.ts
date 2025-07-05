@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, RequestHandler, Response } from 'express';
 import Book from '../models/Book';
 import Borrow from '../models/Borrow';
 
@@ -30,17 +30,21 @@ export const createBook = async (req: Request, res: Response) => {
   }
 };
 
-export const updateBook = async (req: Request, res: Response) => {
+export const updateBook: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const book = await Book.findByIdAndUpdate(id, req.body, { new: true });
-    if (!book) return res.status(404).json({ message: 'Book not found' });
+
+    if (!book) {
+      res.status(404).json({ message: 'Book not found' });
+      return;
+    }
+
     res.json(formatBook(book));
   } catch (error) {
     res.status(400).json({ message: 'Failed to update book' });
   }
 };
-
 export const deleteBook = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

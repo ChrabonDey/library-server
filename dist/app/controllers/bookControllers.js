@@ -43,8 +43,10 @@ const updateBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { id } = req.params;
         const book = yield Book_1.default.findByIdAndUpdate(id, req.body, { new: true });
-        if (!book)
-            return res.status(404).json({ message: 'Book not found' });
+        if (!book) {
+            res.status(404).json({ message: 'Book not found' });
+            return;
+        }
         res.json(formatBook(book));
     }
     catch (error) {
