@@ -6,7 +6,7 @@ import {
   deleteBook,
   getBooks,
   getBorrowSummary,
-  updateBook,
+  updateBook
 } from './app/controllers/bookControllers';
 
 const app = express();
@@ -21,6 +21,7 @@ app.get('/', (_req, res) => {
 
 app.post('/books', createBook);
 app.get('/books', getBooks);
+
 app.patch('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
 app.post('/borrow/:bookId', borrowBook);
