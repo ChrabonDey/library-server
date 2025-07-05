@@ -12,11 +12,7 @@ import {
 const app = express();
 
 app.use(
-  cors({
-    origin: ['http://localhost:5174','https://vite-iota-liart.vercel.app'],
-    credentials:true
-  })
-);
+  cors());
 app.use(express.json());
 
 app.get('/', (_req, res) => {
